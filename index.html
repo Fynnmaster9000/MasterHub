@@ -22,7 +22,7 @@
     </div>
     <script>
         const videos = [
-            { title: "Sus Video", src: "https://cdn.discordapp.com/attachments/1276872686756433921/1355962656917291048/SPOILER_IMG_4229.mov?ex=67ead621&is=67e984a1&hm=b6439043935220aed80c668ea4aa955c231c4654c73561f6d3d2f1aaeedad107&", thumbnail: "https://media.discordapp.net/attachments/1276872686756433921/1355964125376942286/SPOILER_image.png?ex=67ead780&is=67e98600&hm=90318df34fcab7d36d4526cc17d5d21bc7ee2020c6afcb3da98b66bff1f3aba8&=&format=webp&quality=lossless&width=205&height=350" }
+            { title: "Discord Video", src: "https://cdn.discordapp.com/attachments/1276872686756433921/1355962656917291048/SPOILER_IMG_4229.mov?ex=67ead621&is=67e984a1&hm=b6439043935220aed80c668ea4aa955c231c4654c73561f6d3d2f1aaeedad107&", thumbnail: "https://media.discordapp.net/attachments/1276872686756433921/1355964125376942286/SPOILER_image.png?ex=67ead780&is=67e98600&hm=90318df34fcab7d36d4526cc17d5d21bc7ee2020c6afcb3da98b66bff1f3aba8&=&format=webp&quality=lossless&width=205&height=350" }
         ];
         
         const grid = document.getElementById("videoGrid");
@@ -34,13 +34,17 @@
         });
         
         function playVideo(src) {
-            document.getElementById("videoPlayer").src = src;
+            let videoPlayer = document.getElementById("videoPlayer");
+            videoPlayer.src = src;
             document.getElementById("player").style.display = "block";
+            videoPlayer.play();
         }
         
         function closePlayer() {
+            let videoPlayer = document.getElementById("videoPlayer");
             document.getElementById("player").style.display = "none";
-            document.getElementById("videoPlayer").pause();
+            videoPlayer.pause();
+            videoPlayer.currentTime = 0;
         }
     </script>
 </body>
