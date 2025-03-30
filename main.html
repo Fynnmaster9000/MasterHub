@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Hub</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #222; color: white; }
+        .video-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+        .video-item { width: 300px; cursor: pointer; }
+        .video-item img { width: 100%; border-radius: 10px; }
+        #player { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: black; padding: 10px; border-radius: 10px; }
+        #close-btn { cursor: pointer; color: red; font-size: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Video Hub</h1>
+    <div class="video-grid" id="videoGrid"></div>
+    <div id="player">
+        <span id="close-btn" onclick="closePlayer()">✖</span>
+        <video id="videoPlayer" controls></video>
+    </div>
+    <script>
+        const videos = [
+            { title: "Video 1", src: "video1.mp4", thumbnail: "thumb1.jpg" },
+            { title: "Video 2", src: "video2.mp4", thumbnail: "thumb2.jpg" }
+        ];
+        
+        const grid = document.getElementById("videoGrid");
+        videos.forEach(video => {
+            let div = document.createElement("div");
+            div.className = "video-item";
+            div.innerHTML = `<img src="${video.thumbnail}" alt="${video.title}" onclick="playVideo('${video.src}')">`;
+            grid.appendChild(div);
+        });
+        
+        function playVideo(src) {
+            document.getElementById("videoPlayer").src = src;
+            document.getElementById("player").style.display = "block";
+        }
+        
+        function closePlayer() {
+            document.getElementById("player").style.display = "none";
+            document.getElementById("videoPlayer").pause();
+        }
+    </script>
+</body>
+</html>
