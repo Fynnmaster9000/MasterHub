@@ -94,7 +94,7 @@
         <video id="videoPlayer" controls></video>
         <div id="video-info">
             <div class="video-title" id="videoTitle"></div>
-            <div class="video-description" id="videoDescription">This is a sample description.</div>
+            <div class="video-description" id="videoDescription"></div>
             <div class="video-actions">
                 <button class="action-btn" onclick="likeVideo()">👍 Like</button>
                 <button class="action-btn" onclick="dislikeVideo()">👎 Dislike</button>
@@ -104,23 +104,44 @@
     </div>
     <script>
         const videos = [
-            { title: "SUSY Video", src: "https://files.catbox.moe/g52x5b.mov", thumbnail: "https://imgur.com/Gj7vEkc.jpg" },
-            { title: "injecten", src: "https://files.catbox.moe/ujk8qc.mp4", thumbnail: "https://i.imgur.com/9I1GGID.png" },
-            { title: "Gook Gook", src: "https://files.catbox.moe/n9zdi9.mp4", thumbnail: "https://i.imgur.com/bQmnfRl.png" },
-            { title: "more injecten", src: "https://files.catbox.moe/zs5d3g.mp4", thumbnail: "https://i.imgur.com/aEJzSEK.png" }
+            { 
+                title: "Emo corn", 
+                src: "https://files.catbox.moe/g52x5b.mov", 
+                thumbnail: "https://imgur.com/Gj7vEkc.jpg",
+                description: "A emo corn"
+            },
+            { 
+                title: "just puting it in", 
+                src: "https://files.catbox.moe/ujk8qc.mp4", 
+                thumbnail: "https://i.imgur.com/9I1GGID.png",
+                description: "An awesome corn just look at it"
+            },
+            { 
+                title: "gook gook", 
+                src: "https://files.catbox.moe/n9zdi9.mp4", 
+                thumbnail: "https://i.imgur.com/bQmnfRl.png",
+                description: "Another interesting corn to watch."
+            },
+            { 
+                title: "fucking ", 
+                src: "https://files.catbox.moe/zs5d3g.mp4", 
+                thumbnail: "https://i.imgur.com/aEJzSEK.png",
+                description: "Yet another great corn added!"
+            }
         ];
         
         const grid = document.getElementById("videoGrid");
         videos.forEach(video => {
             let div = document.createElement("div");
             div.className = "video-item";
-            div.innerHTML = `<img src="${video.thumbnail}" alt="${video.title}" onclick="playVideo('${video.src}', '${video.title}')">`;
+            div.innerHTML = `<img src="${video.thumbnail}" alt="${video.title}" onclick="playVideo('${video.src}', '${video.title}', '${video.description}')">`;
             grid.appendChild(div);
         });
 
-        function playVideo(src, title) {
+        function playVideo(src, title, description) {
             document.getElementById("videoPlayer").src = src;
             document.getElementById("videoTitle").innerText = title;
+            document.getElementById("videoDescription").innerText = description;
             document.getElementById("player-container").style.display = "block";
             document.getElementById("videoPlayer").play();
         }
