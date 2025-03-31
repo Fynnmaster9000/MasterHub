@@ -68,8 +68,10 @@
     </div>
     <script>
         const videos = [
-            { title: "Discord Video", src: "https://cdn.discordapp.com/attachments/1276872686756433921/1355962656917291048/SPOILER_IMG_4229.mov?ex=67ead621&is=67e984a1&hm=b6439043935220aed80c668ea4aa955c231c4654c73561f6d3d2f1aaeedad107&", thumbnail: "https://media.discordapp.net/attachments/1276872686756433921/1355964125376942286/SPOILER_image.png?ex=67ead780&is=67e98600&hm=90318df34fcab7d36d4526cc17d5d21bc7ee2020c6afcb3da98b66bff1f3aba8&=&format=webp&quality=lossless&width=205&height=350" },
-            { title: "New Video", src: "https://files.catbox.moe/ujk8qc.mp4", thumbnail: "https://i.imgur.com/9I1GGID.png" }
+            { title: "Discord Video", src: "https://cdn.discordapp.com/attachments/1276872686756433921/1355962656917291048/SPOILER_IMG_4229.mov", thumbnail: "https://media.discordapp.net/attachments/1276872686756433921/1355964125376942286/SPOILER_image.png" },
+            { title: "New Video 1", src: "https://files.catbox.moe/ujk8qc.mp4", thumbnail: "https://i.imgur.com/9I1GGID.png" },
+            { title: "New Video 2", src: "https://files.catbox.moe/n9zdi9.mp4", thumbnail: "https://i.imgur.com/bQmnfRl.png" },
+            { title: "New Video 3", src: "https://files.catbox.moe/zs5d3g.mp4", thumbnail: "https://i.imgur.com/aEJzSEK.png" }
         ];
         
         const grid = document.getElementById("videoGrid");
@@ -93,30 +95,6 @@
             videoPlayer.pause();
             videoPlayer.currentTime = 0;
         }
-
-        document.addEventListener("keydown", function(e) {
-            if (
-                e.key === "F12" ||
-                (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J" || e.key === "C" || e.key === "U"))
-            ) {
-                window.location.href = "https://bigrat.monster/";
-            }
-        });
-
-        let devtools = { open: false };
-        const threshold = 160;
-        setInterval(() => {
-            const widthThreshold = window.outerWidth - window.innerWidth > threshold;
-            const heightThreshold = window.outerHeight - window.innerHeight > threshold;
-            if (widthThreshold || heightThreshold) {
-                if (!devtools.open) {
-                    devtools.open = true;
-                    for (let i = 0; i < 12; i++) window.location.href = "https://bigrat.monster/";
-                }
-            } else {
-                devtools.open = false;
-            }
-        }, 500);
     </script>
 </body>
 </html>
