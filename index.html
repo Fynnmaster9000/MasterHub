@@ -5,12 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Master Hub</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; background-color: #222; color: white; }
-        .video-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
-        .video-item { width: 300px; cursor: pointer; }
-        .video-item img { width: 100%; border-radius: 10px; }
-        #player { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: black; padding: 10px; border-radius: 10px; }
-        #close-btn { cursor: pointer; color: red; font-size: 20px; }
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); 
+            color: white; 
+            margin: 0; 
+            padding: 20px;
+        }
+        .video-grid { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 15px; 
+        }
+        .video-item { 
+            width: 300px; 
+            cursor: pointer; 
+            transition: transform 0.3s ease;
+        }
+        .video-item:hover {
+            transform: scale(1.05);
+        }
+        .video-item img { 
+            width: 100%; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+        }
+        #player { 
+            display: none; 
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            background: rgba(0, 0, 0, 0.9); 
+            padding: 10px; 
+            border-radius: 10px; 
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+        #close-btn { 
+            cursor: pointer; 
+            color: red; 
+            font-size: 20px; 
+            position: absolute; 
+            top: 5px; 
+            right: 10px; 
+        }
     </style>
 </head>
 <body>
