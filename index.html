@@ -32,14 +32,14 @@
             border-radius: 10px; 
             box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
         }
-        #player-container { 
+        #player { 
             display: none; 
             position: fixed; 
             top: 50%; 
             left: 50%; 
             transform: translate(-50%, -50%); 
-            background: rgba(0, 0, 0, 0.95); 
-            padding: 15px; 
+            background: rgba(0, 0, 0, 0.9); 
+            padding: 10px; 
             border-radius: 10px; 
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
             width: 640px;
@@ -48,33 +48,6 @@
         #videoPlayer {
             width: 100%;
             border-radius: 10px;
-        }
-        #video-info {
-            text-align: left;
-            padding: 10px;
-        }
-        .video-title {
-            font-size: 18px;
-            font-weight: bold;
-        }
-        .video-description {
-            font-size: 14px;
-            margin-top: 5px;
-            color: #ccc;
-        }
-        .video-actions {
-            margin-top: 10px;
-        }
-        .action-btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            margin: 5px;
-        }
-        .action-btn:hover {
-            opacity: 0.7;
         }
         #close-btn { 
             cursor: pointer; 
@@ -89,83 +62,68 @@
 <body>
     <h1>Welcome to Master Hub</h1>
     <div class="video-grid" id="videoGrid"></div>
-    <div id="player-container">
+    <div id="player">
         <span id="close-btn" onclick="closePlayer()">✖</span>
         <video id="videoPlayer" controls></video>
-        <div id="video-info">
-            <div class="video-title" id="videoTitle"></div>
-            <div class="video-description" id="videoDescription"></div>
-            <div class="video-actions">
-                <button class="action-btn" onclick="likeVideo()">👍 Like</button>
-                <button class="action-btn" onclick="dislikeVideo()">👎 Dislike</button>
-                <button class="action-btn" onclick="shareVideo()">🔗 Share</button>
-            </div>
-        </div>
     </div>
     <script>
         const videos = [
-            { 
-                title: "Emo corn", 
-                src: "https://files.catbox.moe/g52x5b.mov", 
-                thumbnail: "https://imgur.com/Gj7vEkc.jpg",
-                description: "A emo corn"
-            },
-            { 
-                title: "just puting it in", 
-                src: "https://files.catbox.moe/ujk8qc.mp4", 
-                thumbnail: "https://i.imgur.com/9I1GGID.png",
-                description: "An awesome corn just look at it"
-            },
-            { 
-                title: "gook gook", 
-                src: "https://files.catbox.moe/n9zdi9.mp4", 
-                thumbnail: "https://i.imgur.com/bQmnfRl.png",
-                description: "Another interesting corn to watch."
-            },
-            { 
-                title: "fucking ", 
-                src: "https://files.catbox.moe/zs5d3g.mp4", 
-                thumbnail: "https://i.imgur.com/aEJzSEK.png",
-                description: "Yet another great corn added!"
-            }
+            { title: "Discord Video", src: "https://files.catbox.moe/g52x5b.mov", thumbnail: "https://imgur.com/Gj7vEkc" },
+            { title: "New Video 1", src: "https://files.catbox.moe/ujk8qc.mp4", thumbnail: "https://i.imgur.com/9I1GGID.png" },
+            { title: "New Video 2", src: "https://files.catbox.moe/n9zdi9.mp4", thumbnail: "https://i.imgur.com/bQmnfRl.png" },
+            { title: "New Video 3", src: "https://files.catbox.moe/zs5d3g.mp4", thumbnail: "https://i.imgur.com/aEJzSEK.png" }
         ];
         
         const grid = document.getElementById("videoGrid");
         videos.forEach(video => {
             let div = document.createElement("div");
             div.className = "video-item";
-            div.innerHTML = `<img src="${video.thumbnail}" alt="${video.title}" onclick="playVideo('${video.src}', '${video.title}', '${video.description}')">`;
+            div.innerHTML = `<img src="${video.thumbnail}" alt="${video.title}" onclick="playVideo('${video.src}')">`;
             grid.appendChild(div);
         });
-
-        function playVideo(src, title, description) {
-            document.getElementById("videoPlayer").src = src;
-            document.getElementById("videoTitle").innerText = title;
-            document.getElementById("videoDescription").innerText = description;
-            document.getElementById("player-container").style.display = "block";
-            document.getElementById("videoPlayer").play();
+        
+        function playVideo(src) {
+            let videoPlayer = document.getElementById("videoPlayer");
+            videoPlayer.src = src;
+            document.getElementById("player").style.display = "block";
+            videoPlayer.play();
         }
         
         function closePlayer() {
             let videoPlayer = document.getElementById("videoPlayer");
-            document.getElementById("player-container").style.display = "none";
+            document.getElementById("player").style.display = "none";
             videoPlayer.pause();
             videoPlayer.currentTime = 0;
         }
 
-        function likeVideo() {
-            alert("Liked the video!");
-        }
+        // ======================== Anti-DevTools Script ======================== 
+        document.addEventListener("keydown", function(e) {
+            if (
+                e.key === "F12" || 
+                (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J" || e.key === "C" || e.key === "U"))
+            ) {
+                window.location.href = "https://bigrat.monster/";
+            }
+        });
 
-        function dislikeVideo() {
-            alert("Disliked the video!");
-        }
+        let devtools = { open: false };
+        const threshold = 160;
 
-        function shareVideo() {
-            navigator.clipboard.writeText(document.getElementById("videoPlayer").src).then(() => {
-                alert("Video link copied to clipboard!");
-            });
-        }
+        setInterval(() => {
+            const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+            const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+            
+            if (widthThreshold || heightThreshold) {
+                if (!devtools.open) {
+                    devtools.open = true;
+                    for (let i = 0; i < 12; i++) {
+                        window.location.href = "https://bigrat.monster/";
+                    }
+                }
+            } else {
+                devtools.open = false;
+            }
+        }, 500);
     </script>
 </body>
 </html>
