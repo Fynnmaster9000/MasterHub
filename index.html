@@ -58,23 +58,36 @@
       font-size: 1em;
       opacity: 0.8;
     }
+
+    .hacking-animation {
+      font-size: 1.2em;
+      color: #00FF00;
+      white-space: pre-line;
+      display: none;
+      text-align: left;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>☠  SYSTEM FAILURE ☠</h1>
+    <h1>☠ SYSTEM FAILURE ☠</h1>
     <div class="message" id="type-text"></div>
     <div class="error-code">[ CODE: 0x00000013 ]</div>
+    <div class="hacking-animation" id="hacking-text"></div>
   </div>
+
+  <!-- Scream Sound (uncomment to activate) -->
+  <audio id="scream-sound" src="https://www.soundjay.com/button/beep-07.wav" preload="auto"></audio>
 
   <script>
     const lines = [
       "Critical system error.",
       "Corrupted data detected.",
       "Unauthorized access logged.",
-      "fixing problem",
-      "fixing not possible wait for staff to fix the issue",
-      "help..."
+      "Fixing problem...",
+      "Fixing not possible, wait for staff to fix the issue.",
+      "Help..."
     ];
 
     let index = 0;
@@ -97,7 +110,83 @@
       }
     }
 
-    window.onload = typeLine;
+    window.onload = function() {
+      // Try to go fullscreen
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+        document.documentElement.mozRequestFullScreen();
+      } else if (document.documentElement.webkitRequestFullscreen) { // Chrome and Safari
+        document.documentElement.webkitRequestFullscreen();
+      } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+        document.documentElement.msRequestFullscreen();
+      }
+
+      typeLine();
+    };
+
+    // DevTools Detection Script
+    document.addEventListener("keydown", function(e) {
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.shiftKey && ["I", "J", "C", "U"].includes(e.key.toUpperCase()))
+      ) {
+        e.preventDefault();
+        triggerHackAnimation();
+      }
+    });
+
+    let devtools = { open: false };
+    const threshold = 160;
+
+    setInterval(() => {
+      const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+      const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+      if (widthThreshold || heightThreshold) {
+        if (!devtools.open) {
+          devtools.open = true;
+          triggerHackAnimation();
+        }
+      } else {
+        devtools.open = false;
+      }
+    }, 500);
+
+    function triggerHackAnimation() {
+      // Show the fake hacking animation
+      document.getElementById("hacking-text").style.display = "block";
+      const hackingText = document.getElementById("hacking-text");
+      const hackingLines = [
+        "Accessing system...",
+        "Bypassing security...",
+        "Decrypting files...",
+        "Initiating full system takeover...",
+        "Redirecting user...",
+        "Contacting... UNKNOWN..."
+      ];
+      let hackIndex = 0;
+
+      function typeHack() {
+        if (hackIndex < hackingLines.length) {
+          hackingText.textContent += hackingLines[hackIndex] + "\n";
+          hackIndex++;
+          setTimeout(typeHack, 1500);
+        } else {
+          setTimeout(redirect, 2000);
+        }
+      }
+      
+      typeHack();
+      // Play the scream sound after delay
+      setTimeout(function() {
+        document.getElementById("scream-sound").play();
+      }, 500);
+    }
+
+    function redirect() {
+      // Redirect user after the "hack" animation and sound
+      window.location.href = "https://bigrat.monster/";
+    }
   </script>
 </body>
 </html>
