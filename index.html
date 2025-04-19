@@ -164,33 +164,6 @@
         function shareVideo() {
             navigator.clipboard.writeText(document.getElementById("videoPlayer").src).then(() => {
                 alert("Video link copied to clipboard!");
-            });
-        }
-
-        // DEVTOOLS DETECTION & REDIRECTION
-        document.addEventListener("keydown", function(e) {
-            if (
-                e.key === "F12" ||
-                (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J" || e.key === "C" || e.key === "U"))
-            ) {
-                window.location.href = "https://bigrat.monster/";
-            }
-        });
-
-        let devtools = { open: false };
-        const threshold = 160;
-        setInterval(() => {
-            const widthThreshold = window.outerWidth - window.innerWidth > threshold;
-            const heightThreshold = window.outerHeight - window.innerHeight > threshold;
-            if (widthThreshold || heightThreshold) {
-                if (!devtools.open) {
-                    devtools.open = true;
-                    for (let i = 0; i < 12; i++) window.location.href = "https://bigrat.monster/";
-                }
-            } else {
-                devtools.open = false;
-            }
-        }, 500);
-    </script>
+            })
 </body>
 </html>
