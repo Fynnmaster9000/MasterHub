@@ -44,7 +44,6 @@
       box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
     }
 
-    /* Smaller Video Player */
     #player-container {
       display: none;
       position: fixed;
@@ -97,7 +96,6 @@
       font-size: 14px; /* Adjust button size */
     }
 
-    /* Close button for video player */
     #close-btn {
       position: absolute;
       top: 10px;
@@ -266,12 +264,6 @@
         src: "https://files.catbox.moe/zs5d3g.mp4",
         thumbnail: "https://i.imgur.com/aEJzSEK.png",
         description: "Watch 2 people fuck slowly"
-      },
-      {
-        title: "New Video Title",
-        src: "https://files.catbox.moe/newvideo.mp4",
-        thumbnail: "https://i.imgur.com/newthumbnail.png",
-        description: "Description of the fifth video"
       }
     ];
 
@@ -286,26 +278,34 @@
     }
 
     function playVideo(src, title, description) {
-      document.getElementById("videoPlayer").src = src;
+      const videoPlayer = document.getElementById("videoPlayer");
+      const playerContainer = document.getElementById("player-container");
+
+      // Display video player and update the content
+      videoPlayer.src = src;
       document.getElementById("videoTitle").innerText = title;
       document.getElementById("videoDescription").innerText = description;
-      const playerContainer = document.getElementById("player-container");
+      
+      // Show the player
       playerContainer.style.display = "flex";
       setTimeout(() => { 
         playerContainer.style.opacity = "1";
         playerContainer.style.pointerEvents = "auto";
       }, 100);
-      document.getElementById("videoPlayer").play();
+      
+      videoPlayer.play();
     }
 
     function closePlayer() {
-      let videoPlayer = document.getElementById("videoPlayer");
+      const videoPlayer = document.getElementById("videoPlayer");
       const playerContainer = document.getElementById("player-container");
+
       playerContainer.style.opacity = "0";
       playerContainer.style.pointerEvents = "none";
       setTimeout(() => {
         playerContainer.style.display = "none";
       }, 300);
+
       videoPlayer.pause();
       videoPlayer.currentTime = 0;
     }
