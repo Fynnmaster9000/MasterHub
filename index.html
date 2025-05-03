@@ -279,6 +279,12 @@
         src: "https://files.catbox.moe/zs5d3g.mp4",
         thumbnail: "https://i.imgur.com/aEJzSEK.png",
         description: "Watch 2 people fuck slowly"
+      },
+      {
+        title: "New Video Title",  // Fifth video
+        src: "https://files.catbox.moe/newvideo.mp4",  // Add the source of your fifth video here
+        thumbnail: "https://i.imgur.com/newthumbnail.png",  // Replace with the thumbnail of the fifth video
+        description: "Description of the fifth video"
       }
     ];
 
@@ -317,9 +323,7 @@
     }
 
     function shareVideo() {
-      navigator.clipboard.writeText(document.getElementById("videoPlayer").src).then(() => {
-        alert("Video link copied to clipboard!");
-      });
+      alert("Share this video!");
     }
   </script>
 </body>
