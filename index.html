@@ -28,7 +28,6 @@
       gap: 15px;
       padding: 0;
       margin-top: 20px;
-      display: none;
     }
 
     .video-item {
@@ -45,7 +44,7 @@
       box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
     }
 
-    /* Fullscreen video player style */
+    /* Video Player Fixed Size */
     #player-container {
       display: none;
       position: fixed;
@@ -59,6 +58,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      opacity: 0; /* Hidden initially */
+      pointer-events: none; /* Prevent clicks when video is not showing */
+      transition: opacity 0.3s ease, pointer-events 0.3s ease;
     }
 
     #videoPlayer {
@@ -299,13 +301,23 @@
       document.getElementById("videoPlayer").src = src;
       document.getElementById("videoTitle").innerText = title;
       document.getElementById("videoDescription").innerText = description;
-      document.getElementById("player-container").style.display = "flex";
+      const playerContainer = document.getElementById("player-container");
+      playerContainer.style.display = "flex"; // Show video player
+      setTimeout(() => { 
+        playerContainer.style.opacity = "1"; // Fade in the player
+        playerContainer.style.pointerEvents = "auto"; // Allow clicks after fading in
+      }, 100);
       document.getElementById("videoPlayer").play();
     }
 
     function closePlayer() {
       let videoPlayer = document.getElementById("videoPlayer");
-      document.getElementById("player-container").style.display = "none";
+      const playerContainer = document.getElementById("player-container");
+      playerContainer.style.opacity = "0"; // Fade out the player
+      playerContainer.style.pointerEvents = "none"; // Prevent interaction
+      setTimeout(() => {
+        playerContainer.style.display = "none"; // Hide player after animation
+      }, 300);
       videoPlayer.pause();
       videoPlayer.currentTime = 0;
     }
@@ -319,7 +331,9 @@
     }
 
     function shareVideo() {
-      alert("Share this video!");
+      navigator.clipboard.writeText(document.getElementById("videoPlayer").src).then(() => {
+        alert("Video link copied to clipboard!");
+      });
     }
   </script>
 </body>
