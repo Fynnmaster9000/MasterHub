@@ -14,6 +14,10 @@
       padding: 20px;
     }
 
+    #contentContainer {
+      display: none;
+    }
+
     .video-grid {
       display: flex;
       flex-wrap: wrap;
@@ -99,7 +103,6 @@
       right: 10px;
     }
 
-    /* Warning Modal */
     #warningModal {
       position: fixed;
       z-index: 1000;
@@ -142,25 +145,30 @@
   </style>
 </head>
 <body>
+
+  <!-- Warning Modal -->
   <div id="warningModal">
     <h2>Content Warning</h2>
     <p>This hub may contain content intended for mature audiences. Viewer discretion is advised. By clicking Enter, you confirm you are of legal age and wish to proceed.</p>
     <button id="enterBtn">Enter</button>
   </div>
 
-  <h1>Welcome to Master Hub</h1>
-  <div class="video-grid" id="videoGrid"></div>
+  <!-- Hidden Content -->
+  <div id="contentContainer">
+    <h1>Welcome to Master Hub</h1>
+    <div class="video-grid" id="videoGrid"></div>
 
-  <div id="player-container">
-    <span id="close-btn" onclick="closePlayer()">✖</span>
-    <video id="videoPlayer" controls></video>
-    <div id="video-info">
-      <div class="video-title" id="videoTitle"></div>
-      <div class="video-description" id="videoDescription"></div>
-      <div class="video-actions">
-        <button class="action-btn" onclick="likeVideo()">👍 Like</button>
-        <button class="action-btn" onclick="dislikeVideo()">👎 Dislike</button>
-        <button class="action-btn" onclick="shareVideo()">🔗 Share</button>
+    <div id="player-container">
+      <span id="close-btn" onclick="closePlayer()">✖</span>
+      <video id="videoPlayer" controls></video>
+      <div id="video-info">
+        <div class="video-title" id="videoTitle"></div>
+        <div class="video-description" id="videoDescription"></div>
+        <div class="video-actions">
+          <button class="action-btn" onclick="likeVideo()">👍 Like</button>
+          <button class="action-btn" onclick="dislikeVideo()">👎 Dislike</button>
+          <button class="action-btn" onclick="shareVideo()">🔗 Share</button>
+        </div>
       </div>
     </div>
   </div>
@@ -168,6 +176,7 @@
   <script>
     document.getElementById("enterBtn").addEventListener("click", () => {
       document.getElementById("warningModal").style.display = "none";
+      document.getElementById("contentContainer").style.display = "block";
     });
 
     const videos = [
