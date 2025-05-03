@@ -13,7 +13,7 @@
       margin: 0;
       padding: 20px;
       box-sizing: border-box;
-      overflow: hidden; /* Prevent scrolling when video is playing */
+      overflow: hidden;
     }
 
     h1 {
@@ -44,28 +44,29 @@
       box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
     }
 
-    /* Video Player Fixed Size */
+    /* Smaller Video Player */
     #player-container {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60vw; /* Adjust width to make it smaller */
+      height: 40vh; /* Adjust height to make it smaller */
       background: rgba(0, 0, 0, 0.95);
       padding: 15px;
       z-index: 9999;
       display: flex;
       justify-content: center;
       align-items: center;
-      opacity: 0; /* Hidden initially */
-      pointer-events: none; /* Prevent clicks when video is not showing */
+      opacity: 0;
+      pointer-events: none;
       transition: opacity 0.3s ease, pointer-events 0.3s ease;
     }
 
     #videoPlayer {
-      width: 90%;
-      height: 80%;
+      width: 100%; /* Video player width will adjust to the container */
+      height: 100%; /* Video player height will adjust to the container */
       background: #000;
       border-radius: 10px;
     }
@@ -80,13 +81,11 @@
     }
 
     .video-title {
-      font-size: 22px;
-      font-weight: bold;
+      font-size: 18px; /* Adjust font size for smaller player */
     }
 
     .video-description {
-      font-size: 16px;
-      margin-top: 5px;
+      font-size: 14px; /* Adjust font size for smaller player */
     }
 
     .video-actions {
@@ -94,26 +93,7 @@
     }
 
     .action-btn {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-      margin: 5px;
-    }
-
-    .action-btn:hover {
-      opacity: 0.7;
-    }
-
-    #close-btn {
-      cursor: pointer;
-      color: rgb(0, 0, 0);
-      font-size: 30px;
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      z-index: 10000;
+      font-size: 14px; /* Adjust button size */
     }
 
     /* Warning Modal */
@@ -228,10 +208,8 @@
 
   <h1>Welcome to Master Hub</h1>
 
-  <!-- Video grid will be hidden until user clicks enter -->
   <div class="video-grid" id="videoGrid"></div>
 
-  <!-- Fullscreen Video Player -->
   <div id="player-container">
     <span id="close-btn" onclick="closePlayer()">✖</span>
     <div id="video-info">
@@ -249,8 +227,8 @@
   <script>
     document.getElementById("enterBtn").addEventListener("click", () => {
       document.getElementById("warningModal").style.display = "none";
-      document.getElementById("videoGrid").style.display = "flex"; // Show video grid
-      loadVideos(); // Load videos after entering
+      document.getElementById("videoGrid").style.display = "flex";
+      loadVideos();
     });
 
     const videos = [
@@ -279,14 +257,13 @@
         description: "Watch 2 people fuck slowly"
       },
       {
-        title: "New Video Title",  // Fifth video
-        src: "https://files.catbox.moe/newvideo.mp4",  // Add the source of your fifth video here
-        thumbnail: "https://i.imgur.com/newthumbnail.png",  // Replace with the thumbnail of the fifth video
+        title: "New Video Title",
+        src: "https://files.catbox.moe/newvideo.mp4",
+        thumbnail: "https://i.imgur.com/newthumbnail.png",
         description: "Description of the fifth video"
       }
     ];
 
-    // Load videos into the grid after age confirmation
     function loadVideos() {
       const grid = document.getElementById("videoGrid");
       videos.forEach(video => {
@@ -302,10 +279,10 @@
       document.getElementById("videoTitle").innerText = title;
       document.getElementById("videoDescription").innerText = description;
       const playerContainer = document.getElementById("player-container");
-      playerContainer.style.display = "flex"; // Show video player
+      playerContainer.style.display = "flex";
       setTimeout(() => { 
-        playerContainer.style.opacity = "1"; // Fade in the player
-        playerContainer.style.pointerEvents = "auto"; // Allow clicks after fading in
+        playerContainer.style.opacity = "1";
+        playerContainer.style.pointerEvents = "auto";
       }, 100);
       document.getElementById("videoPlayer").play();
     }
@@ -313,10 +290,10 @@
     function closePlayer() {
       let videoPlayer = document.getElementById("videoPlayer");
       const playerContainer = document.getElementById("player-container");
-      playerContainer.style.opacity = "0"; // Fade out the player
-      playerContainer.style.pointerEvents = "none"; // Prevent interaction
+      playerContainer.style.opacity = "0";
+      playerContainer.style.pointerEvents = "none";
       setTimeout(() => {
-        playerContainer.style.display = "none"; // Hide player after animation
+        playerContainer.style.display = "none";
       }, 300);
       videoPlayer.pause();
       videoPlayer.currentTime = 0;
