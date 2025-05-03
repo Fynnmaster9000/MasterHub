@@ -27,6 +27,7 @@
       gap: 15px;
       padding: 0;
       margin-top: 20px;
+      display: none; /* Hide video grid by default */
     }
 
     .video-item {
@@ -178,6 +179,8 @@
   </div>
 
   <h1>Welcome to Master Hub</h1>
+
+  <!-- Video grid will be hidden until user clicks enter -->
   <div class="video-grid" id="videoGrid"></div>
 
   <div id="player-container">
@@ -195,8 +198,11 @@
   </div>
 
   <script>
+    // Event listener for the Enter button
     document.getElementById("enterBtn").addEventListener("click", () => {
       document.getElementById("warningModal").style.display = "none";
+      document.getElementById("videoGrid").style.display = "flex"; // Show video grid
+      loadVideos(); // Load videos after entering
     });
 
     const videos = [
@@ -226,13 +232,16 @@
       }
     ];
 
-    const grid = document.getElementById("videoGrid");
-    videos.forEach(video => {
-      let div = document.createElement("div");
-      div.className = "video-item";
-      div.innerHTML = `<img src="${video.thumbnail}" alt="${video.title}" onclick="playVideo('${video.src}', '${video.title}', \`${video.description}\`)">`;
-      grid.appendChild(div);
-    });
+    // Load videos into the grid after age confirmation
+    function loadVideos() {
+      const grid = document.getElementById("videoGrid");
+      videos.forEach(video => {
+        let div = document.createElement("div");
+        div.className = "video-item";
+        div.innerHTML = `<img src="${video.thumbnail}" alt="${video.title}" onclick="playVideo('${video.src}', '${video.title}', \`${video.description}\`)">`;
+        grid.appendChild(div);
+      });
+    }
 
     function playVideo(src, title, description) {
       document.getElementById("videoPlayer").src = src;
